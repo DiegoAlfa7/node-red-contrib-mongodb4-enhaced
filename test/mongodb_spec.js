@@ -14,7 +14,7 @@ function getHelperNode() {
 function getConfigNode() {
   return {
     id: "config-node",
-    type: "mongodb4-client",
+    type: "mongodb4-client-enhaced",
     ...testConfig.configNode,
   };
 }

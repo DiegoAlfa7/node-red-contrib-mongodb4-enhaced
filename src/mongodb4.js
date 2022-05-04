@@ -62,6 +62,8 @@ module.exports = function (RED) {
         }
       }
 
+      console.log("Creating Mongo client with: new MongoClient(node.n.uri, node.n.options).");
+      console.log(node);
       node.n.client = new MongoClient(node.n.uri, node.n.options);
 
       node.connect = function () {
@@ -76,7 +78,7 @@ module.exports = function (RED) {
     }
   }
 
-  RED.nodes.registerType("mongodb4-client", ClientNode, {
+  RED.nodes.registerType("mongodb4-client-enhaced", ClientNode, {
     credentials: {
       username: { type: "text" },
       password: { type: "password" },
@@ -134,7 +136,7 @@ module.exports = function (RED) {
         // payload has to be array type
         if (! Array.isArray(msg.payload)) {
           throw new Error("Payload is missing or not array type.");
-        } 
+        }
 
         try {
           // handle mongodb document id
