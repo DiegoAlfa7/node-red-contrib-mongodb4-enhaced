@@ -62,7 +62,9 @@ module.exports = function (RED) {
         }
       }
 
-      console.log("Creating Mongo client with: new MongoClient(node.n.uri, node.n.options).");
+      console.log(
+        "Creating Mongo client with: new MongoClient(node.n.uri, node.n.options)."
+      );
       console.log(node);
       node.n.client = new MongoClient(node.n.uri, node.n.options);
 
@@ -134,16 +136,18 @@ module.exports = function (RED) {
         }
 
         // payload has to be array type
-        if (! Array.isArray(msg.payload)) {
+        if (!Array.isArray(msg.payload)) {
           throw new Error("Payload is missing or not array type.");
         }
 
         try {
           // handle mongodb document id
           handleDocumentId(msg.payload, false);
-        }catch(warn){
+        } catch (warn) {
           // on error set warning and continue
-          console.warn('mongodb4-operation: document _id fix failed; ' + warn.message);
+          console.warn(
+            "mongodb4-operation: document _id fix failed; " + warn.message
+          );
         }
 
         // execute mongodb operation
@@ -216,6 +220,47 @@ module.exports = function (RED) {
       }
     });
 
+    node.n.connectTest = async function () {
+
+      const url = "mongodb://db";
+
+      const config = {
+        connectTimeoutMS: 5000,
+      };
+
+      console.log("Connecting Directly: " + url);
+      console.time("connected...");
+      try {
+        const connection = new MongoClient(url, {});
+
+        await connection.connect((error, result) => {
+          if (result) {
+            // console.warn(result);
+          }
+
+          if (error) {
+            console.error("Error while executing connect() in connectTest")
+            console.error(error);
+          }
+        });
+
+        console.log("Direct Connection Created:");
+
+        const authDB = connection.db("auth");
+        console.log(await authDB.stats());
+
+        const dbDB = connection.db("db");
+        console.log(await dbDB.stats());
+
+        connection.close();
+      } catch (error) {
+        console.error("Error in direct connection.")
+        console.error(error);
+      } finally {
+        console.timeEnd("connected...");
+      }
+    };
+
     node.n.connect = async function () {
       node.status({ fill: "yellow", shape: "ring", text: "connecting" });
       try {
@@ -232,6 +277,8 @@ module.exports = function (RED) {
         return true;
       } catch (err) {
         // error on connection
+        console.error("Error on connection");
+        console.error(e);
         node.n.connecting = null;
         node.status({ fill: "red", shape: "ring", text: "connection error" });
         node.n.handleError(err, null, null);
@@ -240,6 +287,11 @@ module.exports = function (RED) {
     };
 
     if (node.n.clientNode && node.n.clientNode.connect) {
+
+      //Try direct connection
+
+      await node.n.connectTest();
+
       // connect async
       node.n.connecting = node.n.connect();
     } else {
@@ -278,5 +330,5 @@ module.exports = function (RED) {
     }
   }
 
-  RED.nodes.registerType("mongodb4", OperationNode);
+  RED.nodes.registerType("mongodb4-enhaced", OperationNode);
 };

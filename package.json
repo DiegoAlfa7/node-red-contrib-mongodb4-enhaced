@@ -1,17 +1,16 @@
 {
-  "name": "node-red-contrib-mongodb4",
-  "version": "1.4.0",
-  "description": "A powerful node-red node for mongodb driver 4",
+  "name": "node-red-contrib-mongodb4-enhaced",
+  "version": "0.0.4",
+  "description": "A powerful node-red node for mongodb driver 4, but log enhaced",
   "keywords": [
     "node-red",
     "mongodb"
   ],
-  "author": "Christopher Steinbach",
+  "author": "Diego Alfaro Sáez (regards to Christopher Steinbach)",
   "homepage": "https://github.com/steineey/node-red-contrib-mongodb4#readme",
-  "bugs": "https://github.com/steineey/node-red-contrib-mongodb4/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/steineey/node-red-contrib-mongodb4"
+    "url": "https://github.com/DiegoAlfa7/node-red-contrib-mongodb4-enhaced"
   },
   "license": "MIT",
   "scripts": {
@@ -23,7 +22,7 @@
   "node-red": {
     "version": ">=2.0.0",
     "nodes": {
-      "mongodb4": "src/mongodb4.js"
+      "mongodb4-enhaced": "src/mongodb4-enhaced.js"
     }
   },
   "engines": {

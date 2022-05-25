@@ -213,7 +213,7 @@ Node will create a MongoDB Client.
 </script>
 
 <script type="text/javascript">
-  RED.nodes.registerType("mongodb4", {
+  RED.nodes.registerType("mongodb4-enhaced", {
     category: "storage-input",
     color: "#3FA037",
     defaults: {
@@ -227,12 +227,12 @@ Node will create a MongoDB Client.
     outputs: 1,
     icon: "db.svg",
     label: function () {
-      return this.name || this.operation || "mongodb4";
+      return this.name || this.operation || "mongodb4-enhaced";
     },
   });
 </script>
 
-<script type="text/html" data-template-name="mongodb4">
+<script type="text/html" data-template-name="mongodb4-enhaced">
   <div class="form-row">
     <label for="node-input-clientNode"
       ><i class="fa fa-server"></i> Connection</label
@@ -268,7 +268,7 @@ Node will create a MongoDB Client.
   </div>
 </script>
 
-<script type="text/markdown" data-help-name="mongodb4">
+<script type="text/markdown" data-help-name="mongodb4-enhaced">
 Execute MongoDB collection operations with this node.
 
 ### Inputs / Options

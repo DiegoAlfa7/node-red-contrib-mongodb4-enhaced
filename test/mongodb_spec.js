@@ -1,6 +1,6 @@
 var should = require("should");
 var helper = require("node-red-node-test-helper");
-var mongodbNode = require("../src/mongodb4.js");
+var mongodbNode = require("../src/mongodb4-enhaced.js");
 var uid = require("uuid").v4();
 var testConfig = require("./config.json");
 const { ObjectId } = require("mongodb");
@@ -22,7 +22,7 @@ function getConfigNode() {
 function getOperationNode() {
   return {
     id: "operation-node",
-    type: "mongodb4",
+    type: "mongodb4-enhaced",
     clientNode: "config-node",
     collection: testConfig.collection,
     wires: [["helper-node"]],
